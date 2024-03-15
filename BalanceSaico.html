@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Saico</title>
+    <link rel="stylesheet" href="./style_Balance_Saico.css">
+  
+</head>
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --background-gris:  rgba(166, 161, 161, 0.585); 
+    --background-gris-oscuro: #8a888832; 
+
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+	height: 100vh;
+} 
+
+.balance__saico{
+    display: flex;
+	margin:100px 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+   
+}
+
+.balance__title{    
+    text-align: center;
+    background-color: rgb(31, 18, 18);
+    background-image: linear-gradient(to bottom, #383636, #151414);    
+}
+
+.titles {
+    padding: 5px;
+    text-align: center;
+    color: white;
+    height: 20px;    
+}
+.table tbody th,
+.table tbody td {
+    padding: 1rem;
+}
+/*Comienza la tabla de activos*/
+.table,.totales
+{  
+    text-align: center;  
+    
+    
+    background-color:var(--background-gris-oscuro);
+    border-collapse: collapse;   
+    height: auto;
+    
+}
+.table__contenido th td{
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-collapse: collapse; 
+}
+.contenido {
+    display: flex;
+    border: 1px solid;    
+    justify-content: space-between;
+    align-items: center;
+}
+tbody th,
+td{
+    width: 200px;
+    border: 2.5px solid rgba(219, 213, 213, 0.26) !important;
+}
+
+th{
+    font-size: 17.5px;
+}
+tr:hover {
+    background-color:var(--background-gris-oscuro);
+	 transition: .5s;
+  }
+.totales:hover {
+    background-color: var(--background-gris);  
+    transition: .5s;  
+ }
+
+
+
+/* .total__activo,
+.table__activos {
+    dis
+    flex-direction: column;
+} */
+.tables{
+   
+    
+    display: flex;
+    gap: 50px;
+
+}
+
+  .totales{
+    background-color: #151414;
+    border: 1px solid rgba(232, 230, 230, 0.547) !important;
+    background-color: var(--background-gris-oscuro);
+    
+    height: 100px;
+    width: auto;
+   
+    display: flex;
+    flex-direction: column;
+    
+    gap:1em;
+    border-radius: 10px;
+
+    padding: 10px 20px;
+    justify-content: center;
+
+    text-align: left;
+
+    margin-top: 10px;
+ 
+  }
+
+  /* .totales.pasivos {
+    
+  } */
+
+  
+  .section__titles{      
+    font-size: 1.4rem; 
+    padding-bottom: .3em;
+    border-bottom: 1px solid;
+    
+  }
+ .value__containers{
+    display: flex;
+    justify-content: space-between;
+ }
+
+
+
+
+
+
+
+</style>
+
+<body>
+    <main class="balance__saico ">
+
+        <div class="tables">
+
+            <section class="table__activos completo">
+
+                <table class="table__activos table">
+                    <thead>
+                        <tr>
+                            <th class="titles balance__title" colspan="2">Activos</th>
+                        </tr>     
+                    </thead>
+                    <tbody>         
+                        <tr>
+                            <th>Inventario</th>
+                            <td>$<%=thisapp.Formatos.Separador_pesos(inventario.round(0))%></td>
+                        <tr>
+                            <th>Cuentas por Cobrar</th>
+                            <td>$<%=thisapp.Utils.formatMoney(CxC)%></td>                
+                        </tr>
+                        <tr>
+                        <th >Préstamos</th>
+                            <td >$<%=thisapp.Formatos.Separador_pesos(prestamos)%></td>                                
+                        </tr>
+                        <tr>
+                            <th >Valor de Cajas</th>
+                                <td >$<%=thisapp.Formatos.Separador_pesos(valorCajas)%></td>                                
+                            </tr>
+                   </tbody>    
+                </table>    
+
+                 <section class="totales total__activos">
+    
+                    <h2 class="section__titles">Total Activos</h2>
+                    <div class="value__containers">
+                        <p class="section__valores"> Suma de valores:</p> 
+                        <p class="section__valores"> $<%=thisapp.Utils.formatMoney(activos)%></p>  
+                    </div>
+                </section>
+
+            </section>
+
+            <section class="table__pasivos completo">
+
+                <table class="table__pasivos table">	   
+                    <thead>
+                        <tr>
+                            <th class="titles balance__title" colspan="2">Pasivos</th>
+                        </tr>     
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Entradas Inventario</th>
+                            <td >$<%=thisapp.Utils.formatMoney(entradaInventario)%></td>
+                        </tr>
+                        <tr >
+                            <th>Cuentas por Pagar</th>
+                            <td>$<%=thisapp.Utils.formatMoney(CxP)%></td>                
+                        </tr>          
+                    </tbody>   
+                </table>
+
+                <section class="totales total__pasivos">
+        
+                    <h2 class="section__titles">Total Pasivos</h2>
+
+                    <div class="value__containers"> 
+                        <p class="section__valores">Suma de valores:</p> 
+                        <p class="selection__valores"> $<%=thisapp.Utils.formatMoney(pasivos)%></p>       
+                    </div>  
+
+                </section>
+
+                <section class="totales total__patrimonio+pasivos">
+        
+                    <h2 class="section__titles">Patrimonio + Pasivos</h2>
+                    
+                    <div class="value__containers"> 
+                        <p class="section__valores">Suma de valores:</p>        
+                        <p class="selection__valores"> $<%=thisapp.Utils.formatMoney(totalPatrimonio+pasivos)%></p>
+                    </div>  
+
+                </section>
+
+            </section>   
+
+
+
+            <section class="table__pasivos completo">
+                <table class="table__patrimonio table">
+                    <thead>
+                        <tr>
+                            <th class="titles balance__title" colspan="2">Patrimonio</th>
+                        </tr>     
+                    </thead>
+                    <tbody>
+                    
+                        <tr>
+                            <th>Total Patrimonio</th>
+                            <td>$<%=thisapp.Utils.formatMoney(totalPatrimonio)%></td>                
+                        </tr>           
+                    </tbody> 
+                </table>   
+
+                <section class="totales total__patrimonio">
+
+                    <h2 class="section__titles">Utilidad</h2>
+                    <div class="value__containers"> 
+                        <p class="section__valores">Activos - Pasivos - Patrimonio:</p> 
+                        <p class="selection__valores"> $<%=thisapp.Utils.formatMoney(activos-pasivos-totalPatrimonio)%></p>       
+                    </div>      
+                </section>
+            
+
+            </section>
+        </div>
+
+    </main>    
+</body>
+</html>
+
